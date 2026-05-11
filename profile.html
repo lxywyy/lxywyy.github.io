@@ -1,84 +1,608 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>货币政策工具 · 知识图谱</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#8B1538;
+  --red-deep:#6E0F2C;
+  --red-soft:#A53A56;
+  --gold:#C9A961;
+  --gold-light:#E8D9A8;
+  --gold-deep:#9A7E3D;
+  --cream:#FAF6EE;
+  --cream-warm:#F2EBD8;
+  --ink:#2B1810;
+  --ink-soft:#4A3528;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.6;
+  overflow-x:hidden;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,169,97,.18), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(139,21,56,.08), transparent 60%);
+}
+/* faint paper texture */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(139,21,56,.012) 0, rgba(139,21,56,.012) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(90deg, rgba(201,169,97,.012) 0, rgba(201,169,97,.012) 1px, transparent 1px, transparent 3px);
+}
+.wrap{position:relative;z-index:1;max-width:1480px;margin:0 auto;padding:32px 28px 80px}
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0"/>
-<link rel="shortcut icon" href="images/wuyy.ico" />
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+/* ---------- Header ---------- */
+header{
+  text-align:center;padding:28px 0 24px;border-bottom:1px solid rgba(201,169,97,.4);
+  position:relative;
+}
+header::before,header::after{
+  content:'';position:absolute;left:50%;height:1px;background:var(--gold);
+}
+header::before{bottom:-5px;width:80px;transform:translateX(-50%)}
+header::after{bottom:-9px;width:30px;transform:translateX(-50%);opacity:.6}
+.eyebrow{
+  font-family:'Cormorant Garamond',serif;
+  letter-spacing:.42em;font-size:11.5px;color:var(--gold-deep);
+  text-transform:uppercase;margin-bottom:14px;
+}
+h1{
+  font-family:'Noto Serif SC',serif;font-weight:900;
+  font-size:clamp(28px,3.4vw,46px);
+  color:var(--red);
+  letter-spacing:.08em;
+  margin-bottom:8px;
+}
+h1 .dot{
+  display:inline-block;width:6px;height:6px;background:var(--gold);
+  border-radius:50%;margin:0 18px;vertical-align:middle;
+  box-shadow:0 0 0 4px rgba(201,169,97,.18);
+}
+.subtitle{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--ink-soft);font-size:15px;letter-spacing:.04em;
+}
+.subtitle .cn{font-family:'Noto Serif SC',serif;font-style:normal;color:var(--red-soft);margin-left:10px}
 
-    <title>wuyy2007</title>
-  </head>
+/* ---------- Controls bar ---------- */
+.controls{
+  display:flex;align-items:center;gap:16px;margin:28px 0 24px;
+  flex-wrap:wrap;
+}
+.search{
+  flex:1;min-width:260px;position:relative;
+}
+.search input{
+  width:100%;padding:13px 18px 13px 46px;
+  background:rgba(255,255,255,.65);
+  border:1px solid rgba(201,169,97,.55);
+  border-radius:2px;
+  font-family:'Noto Sans SC',sans-serif;
+  font-size:14px;color:var(--ink);
+  letter-spacing:.04em;
+  transition:all .25s;
+  backdrop-filter:blur(6px);
+}
+.search input::placeholder{color:#8b7a6e;font-weight:300}
+.search input:focus{
+  outline:none;border-color:var(--red);
+  background:rgba(255,255,255,.85);
+  box-shadow:0 0 0 3px rgba(139,21,56,.08);
+}
+.search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--gold-deep)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{
+  padding:11px 20px;border:1px solid var(--red);
+  background:transparent;color:var(--red);
+  font-family:'Noto Sans SC',sans-serif;font-size:13px;
+  letter-spacing:.12em;cursor:pointer;border-radius:2px;
+  transition:all .22s;font-weight:500;
+}
+.btn:hover{background:var(--red);color:var(--cream)}
+.btn.primary{background:var(--red);color:var(--cream)}
+.btn.primary:hover{background:var(--red-deep);border-color:var(--red-deep)}
+.btn.gold{border-color:var(--gold-deep);color:var(--gold-deep)}
+.btn.gold:hover{background:var(--gold-deep);color:var(--cream)}
 
-  <body>
+/* ---------- Stats strip ---------- */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px;
+}
+.stat{
+  border:1px solid rgba(201,169,97,.4);
+  background:rgba(255,255,255,.4);
+  padding:18px 20px;border-radius:2px;
+  display:flex;align-items:baseline;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+.stat::before{
+  content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--red);
+}
+.stat .num{
+  font-family:'Cormorant Garamond',serif;font-weight:700;
+  font-size:32px;color:var(--red);line-height:1;
+}
+.stat .lbl{font-size:11.5px;letter-spacing:.22em;color:var(--ink-soft);text-transform:uppercase}
+.stat .cn{font-size:12px;color:var(--ink-soft);letter-spacing:.16em;margin-top:2px;display:block}
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-         <!--  <a id="forkme_banner" href="https://github.com/dcloudio">View on GitHub</a> -->
+/* ---------- Main grid ---------- */
+.grid{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start}
+@media(max-width:1100px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
 
-          <h1 id="project_title">抽象，重复，联想与好奇</h1>
-          <h2 id="project_tagline">         人类的学习技能</h2>
+/* ---------- Tree panel ---------- */
+.panel{
+  background:linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.3));
+  border:1px solid rgba(201,169,97,.4);
+  border-radius:3px;
+  padding:30px 26px;
+  position:relative;
+  backdrop-filter:blur(8px);
+}
+.panel::before,.panel::after{
+  content:'';position:absolute;width:18px;height:18px;
+  border:1.5px solid var(--gold);
+}
+.panel::before{top:8px;left:8px;border-right:none;border-bottom:none}
+.panel::after{bottom:8px;right:8px;border-left:none;border-top:none}
+.panel-title{
+  display:flex;align-items:center;gap:14px;margin-bottom:22px;
+  padding-bottom:14px;border-bottom:1px dashed rgba(201,169,97,.5);
+}
+.panel-title h2{
+  font-family:'Noto Serif SC',serif;font-weight:700;
+  font-size:18px;color:var(--red);letter-spacing:.1em;
+}
+.panel-title .en{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--gold-deep);font-size:13px;letter-spacing:.18em;margin-left:auto;
+}
 
-        </header>
+/* ---------- Tree ---------- */
+.tree{font-family:'Noto Serif SC',serif}
+.node{position:relative;margin-left:0}
+.node-line{display:flex;align-items:center;gap:10px;padding:6px 0;cursor:pointer;user-select:none}
+.node-line:hover .label{color:var(--red)}
+.label{
+  font-size:15px;color:var(--ink);letter-spacing:.06em;font-weight:500;
+  transition:color .2s;
+  position:relative;padding:6px 14px;border-radius:2px;
+}
+.toggle{
+  width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid var(--gold);color:var(--gold-deep);font-family:'Cormorant Garamond',serif;
+  font-size:13px;font-weight:700;background:var(--cream);
+  border-radius:50%;flex:none;transition:all .22s;
+}
+.node.open > .node-line > .toggle{
+  background:var(--red);color:var(--cream);border-color:var(--red);transform:rotate(45deg);
+}
+.toggle.empty{visibility:hidden}
+
+/* Node level styling */
+.node.lv-0 > .node-line > .label{
+  font-size:20px;color:var(--cream);background:var(--red);
+  padding:10px 22px;font-weight:700;letter-spacing:.18em;
+  box-shadow:0 0 0 1px var(--gold) inset, 0 4px 0 0 var(--red-deep);
+}
+.node.lv-1 > .node-line > .label{
+  font-size:16px;color:var(--ink);background:var(--gold-light);
+  padding:8px 18px;font-weight:700;letter-spacing:.12em;
+  border-left:3px solid var(--red);
+}
+.node.lv-2 > .node-line > .label{
+  font-size:14px;color:var(--red);background:transparent;
+  padding:6px 14px;font-weight:700;letter-spacing:.08em;
+  border-bottom:1px solid var(--gold);
+}
+.node.lv-3 > .node-line > .label{
+  font-size:14px;color:var(--cream);background:var(--red-soft);
+  padding:6px 14px;font-weight:500;letter-spacing:.06em;
+}
+.node.lv-3 > .node-line:hover > .label{background:var(--red)}
+.node.lv-3.active > .node-line > .label{
+  background:var(--red);box-shadow:0 0 0 2px var(--gold);
+}
+
+.children{
+  margin-left:32px;padding-left:22px;position:relative;
+  border-left:1px dashed rgba(201,169,97,.6);
+  max-height:0;overflow:hidden;
+  transition:max-height .45s ease;
+}
+.node.open > .children{max-height:8000px}
+.children > .node{position:relative}
+.children > .node::before{
+  content:'';position:absolute;left:-22px;top:18px;width:18px;height:1px;
+  background:rgba(201,169,97,.6);
+}
+
+/* highlight for search */
+.match > .node-line > .label{
+  box-shadow:0 0 0 2px var(--gold);
+}
+.dim{opacity:.28;pointer-events:none}
+
+/* ---------- Detail panel ---------- */
+.detail{
+  position:sticky;top:24px;
+  background:linear-gradient(180deg, rgba(139,21,56,.04), rgba(255,255,255,.7));
+  border:1px solid rgba(201,169,97,.5);
+  padding:30px 26px;border-radius:3px;
+  min-height:400px;
+  position:sticky;top:24px;
+}
+.detail::before,.detail::after{
+  content:'';position:absolute;width:22px;height:22px;border:1.5px solid var(--red);
+}
+.detail::before{top:10px;right:10px;border-left:none;border-bottom:none}
+.detail::after{bottom:10px;left:10px;border-right:none;border-top:none}
+
+.detail-empty{
+  text-align:center;padding:60px 20px;
+  color:var(--ink-soft);
+}
+.detail-empty .glyph{
+  font-family:'Noto Serif SC',serif;font-size:56px;color:var(--gold);
+  opacity:.55;margin-bottom:16px;
+}
+.detail-empty p{font-size:13px;letter-spacing:.22em;color:var(--gold-deep);text-transform:uppercase;font-family:'Cormorant Garamond',serif;font-style:italic}
+.detail-empty p.cn{font-family:'Noto Sans SC',sans-serif;font-style:normal;text-transform:none;letter-spacing:.18em;font-size:13px;margin-top:8px;color:var(--ink-soft)}
+
+.breadcrumb{
+  display:flex;flex-wrap:wrap;gap:6px;font-size:11px;
+  letter-spacing:.2em;color:var(--gold-deep);margin-bottom:16px;text-transform:uppercase;
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+}
+.breadcrumb span:not(:last-child)::after{content:'›';margin-left:6px;color:var(--gold)}
+
+.detail h3{
+  font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;
+  color:var(--red);letter-spacing:.1em;margin-bottom:6px;
+}
+.detail .en-title{
+  font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-deep);
+  font-size:14px;letter-spacing:.16em;margin-bottom:20px;
+  padding-bottom:14px;border-bottom:1px dashed rgba(201,169,97,.5);
+}
+.detail .section-label{
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  color:var(--red);font-size:12px;letter-spacing:.3em;text-transform:uppercase;
+  margin-bottom:14px;
+}
+.detail .section-label::before{
+  content:'';display:inline-block;width:18px;height:1px;background:var(--gold);
+  vertical-align:middle;margin-right:10px;
+}
+.detail ul{list-style:none}
+.detail li{
+  padding:10px 0 10px 22px;position:relative;
+  font-family:'Noto Serif SC',serif;font-size:14px;color:var(--ink);
+  letter-spacing:.04em;line-height:1.7;
+  border-bottom:1px dotted rgba(201,169,97,.4);
+}
+.detail li:last-child{border-bottom:none}
+.detail li::before{
+  content:'◆';position:absolute;left:0;top:11px;color:var(--gold);font-size:10px;
+}
+.tag{
+  display:inline-block;padding:4px 10px;border:1px solid var(--gold);
+  color:var(--gold-deep);font-size:10.5px;letter-spacing:.22em;
+  border-radius:1px;margin-right:6px;margin-bottom:6px;
+  font-family:'Noto Sans SC',sans-serif;font-weight:500;text-transform:uppercase;
+}
+
+/* footer */
+footer{
+  margin-top:60px;padding-top:20px;
+  border-top:1px solid rgba(201,169,97,.4);
+  text-align:center;color:var(--ink-soft);font-size:12px;letter-spacing:.18em;
+  font-family:'Noto Serif SC',serif;font-style:italic;
+}
+footer .seal{
+  display:inline-block;width:34px;height:34px;border:1.5px solid var(--red);
+  color:var(--red);font-weight:700;font-family:'Noto Serif SC',serif;font-size:11px;
+  line-height:30px;text-align:center;border-radius:50%;margin-bottom:10px;
+  font-style:normal;letter-spacing:0;
+}
+
+/* animation */
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.detail-content > *{animation:rise .35s ease both}
+.detail-content > *:nth-child(2){animation-delay:.05s}
+.detail-content > *:nth-child(3){animation-delay:.1s}
+.detail-content > *:nth-child(4){animation-delay:.15s}
+.detail-content > *:nth-child(5){animation-delay:.2s}
+
+/* scrollbar */
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:var(--cream-warm)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:1px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-deep)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">People's Bank of China — Policy Architecture</div>
+  <h1>货币政策工具<span class="dot"></span>知识图谱</h1>
+  <div class="subtitle">Monetary Policy Toolkit<span class="cn">一图读懂中国央行政策工具体系</span></div>
+</header>
+
+<div class="controls">
+  <div class="search">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="searchInput" placeholder="搜索工具名称…  例如：SLF、LPR、专项再贷款" />
+  </div>
+  <div class="actions">
+    <button class="btn primary" id="expandAll">展开全部</button>
+    <button class="btn" id="collapseAll">折叠全部</button>
+    <button class="btn gold" id="resetBtn">重置</button>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div><div class="num" id="statTypes">3</div><span class="cn">主类</span></div><span class="lbl">Types</span></div>
+  <div class="stat"><div><div class="num" id="statCats">5</div><span class="cn">分类</span></div><span class="lbl">Categories</span></div>
+  <div class="stat"><div><div class="num" id="statTools">10</div><span class="cn">工具</span></div><span class="lbl">Tools</span></div>
+  <div class="stat"><div><div class="num" id="statItems">38</div><span class="cn">具体内容</span></div><span class="lbl">Items</span></div>
+</div>
+
+<div class="grid">
+  <div class="panel">
+    <div class="panel-title">
+      <h2>政策工具树</h2>
+      <span class="en">Hierarchical View</span>
     </div>
+    <div id="tree" class="tree"></div>
+  </div>
 
-    <!-- MAIN CONTENT -->
-	
+  <aside class="detail" id="detail">
+    <div class="detail-empty" id="emptyState">
+      <div class="glyph">币</div>
+      <p>Select a Policy Tool</p>
+      <p class="cn">点击左侧工具节点 · 查看详细内容</p>
+    </div>
+  </aside>
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div id="main_content_wrap" class="outer">
-
-
-
-
-
-
-<section id="main_content" class="inner">
-<section id="sidebar" class = "../inner" style="list-style-type:none">
-<span class="profile"> <a href="../profile" title="简介">简介</a>&nbsp;</span>
- | 
-<span class="paper"><a href="../paper" title="文献">文献</a>&nbsp;</span>
- | 
-<span class="article"> <a href="../article" title="摘录">摘录</a>&nbsp;</span>
- | 
-<span class="data">  <a href="../data" title="数据">数据</a>&nbsp;</span>
-
-
-<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=2)" width="80%" color=#987cb9 SIZE=10>
-</section>	
-
-<!-- <h4><a name="article" class="anchor" href="article"><span class="octicon octicon-link"></span></a>伟大民族精神凝聚强大战疫力量</h4> -->
-<p >这是个实验的网站
-<p>2020年3月27日</p>
-
-
-</section>
+<footer>
+  <div class="seal">央<br></div>
+  <div>中国人民银行  ·  货币政策工具体系</div>
+  <div style="font-style:normal;color:var(--gold-deep);margin-top:6px;letter-spacing:.3em;font-family:'Cormorant Garamond',serif">— A R C H I T E C T U R E   O F   M O N E T A R Y   I N S T R U M E N T S —</div>
+</footer>
 
 </div>
 
-<!-- FOOTER  -->
-<div id="footer_wrap" class="outer">
-  <footer class="inner">
-	<p>Published with <a href="https://gitee.com/wuyy2007">Wuyy Github Pages</a></p>
-  </footer>
-</div>
+<script>
+// ===== Data model =====
+const DATA = {
+  name:'货币政策工具', level:0, en:'Monetary Policy Toolkit',
+  children:[
+    { name:'数量型工具', level:1, en:'Quantitative Tools',
+      desc:'通过调控货币数量及流动性总量影响经济',
+      children:[
+        { name:'总量', level:2, en:'Aggregate',
+          children:[
+            { name:'公开市场操作', level:3, en:'Open Market Operations',
+              items:['回购交易','现券交易','发行央行票据','国库现金定存','短期流动性调节工具（SLO）','临时流动性便利（TLF）','证券、基金、保险公司互换便利（SFISF）'] },
+            { name:'存款准备金', level:3, en:'Reserve Requirements',
+              items:['超额准备金利率','临时准备金动用安排（CRA）'] },
+            { name:'流动性再贷款', level:3, en:'Liquidity Relending',
+              items:['常备借贷便利（SLF）','中期借贷便利（MLF）'] },
+          ]
+        },
+        { name:'结构', level:2, en:'Structural',
+          children:[
+            { name:'信贷支持再贷款', level:3, en:'Credit-Support Relending',
+              items:['支农再贷款','支小再贷款','再贴现'] },
+            { name:'专项政策再贷款', level:3, en:'Special-Purpose Relending',
+              items:['普惠小微贷款支持工具','抵押补充贷款（PSL）','碳减排支持工具','科技创新再贷款','交通物流专项再贷款','设备更新改造专项再贷款','收费公路贷款支持工具','民营企业债券融资支持工具（第二期）','保交楼贷款支持计划','房企纾困专项再贷款','科技创新和技术改造再贷款','保障性住房再贷款'] },
+            { name:'金融稳定再贷款', level:3, en:'Financial Stability Relending',
+              items:['股票回购增持专项再贷款'] },
+          ]
+        }
+      ]
+    },
+    { name:'价格型工具', level:1, en:'Price Tools',
+      desc:'通过调控利率影响资金价格与配置',
+      children:[
+        { name:'政策利率', level:3, en:'Policy Rates',
+          items:['存贷款基准利率','逆回购操作利率（MLF利率）','贷款市场报价利率（LPR）'] }
+      ]
+    },
+    { name:'沟通型工具', level:1, en:'Communication Tools',
+      desc:'通过预期管理引导市场行为',
+      children:[
+        { name:'书面沟通工具', level:3, en:'Written Communication',
+          items:['货币政策执行报告','货币政策委员会会议新闻稿','公开市场操作公告'] },
+        { name:'口头沟通工具', level:3, en:'Verbal Communication',
+          items:['讲话和新闻发布会','窗口指导'] },
+        { name:'新媒体沟通工具', level:3, en:'New-Media Communication',
+          items:['社交媒体'] },
+      ]
+    }
+  ]
+};
 
+// ===== Stats =====
+function countStats(){
+  let cats=0, tools=0, items=0;
+  function walk(n, depth){
+    if(n.level===2) cats++;
+    if(n.level===3){ tools++; items += (n.items||[]).length }
+    (n.children||[]).forEach(c=>walk(c, depth+1));
+  }
+  walk(DATA, 0);
+  document.getElementById('statCats').textContent = cats;
+  document.getElementById('statTools').textContent = tools;
+  document.getElementById('statItems').textContent = items;
+}
+countStats();
 
+// ===== Build tree DOM =====
+function buildNode(node, parentPath=[]){
+  const path = [...parentPath, node.name];
+  const wrap = document.createElement('div');
+  wrap.className = `node lv-${node.level}`;
+  wrap.dataset.name = node.name;
+  wrap.dataset.path = path.join('›');
 
-  </body>
+  const line = document.createElement('div');
+  line.className = 'node-line';
+
+  const toggle = document.createElement('span');
+  toggle.className = 'toggle' + ((node.children && node.children.length) ? '' : (node.items ? '' : ' empty'));
+  toggle.textContent = (node.children && node.children.length) ? '+' : (node.items ? '·' : '');
+
+  const label = document.createElement('span');
+  label.className = 'label';
+  label.textContent = node.name;
+
+  line.appendChild(toggle);
+  line.appendChild(label);
+  wrap.appendChild(line);
+
+  // children
+  if(node.children && node.children.length){
+    const childBox = document.createElement('div');
+    childBox.className = 'children';
+    node.children.forEach(c => childBox.appendChild(buildNode(c, path)));
+    wrap.appendChild(childBox);
+    line.addEventListener('click', e=>{
+      e.stopPropagation();
+      wrap.classList.toggle('open');
+    });
+  } else {
+    // leaf — toggle is a dot, click opens detail
+    line.addEventListener('click', e=>{
+      e.stopPropagation();
+      document.querySelectorAll('.node.lv-3.active').forEach(n=>n.classList.remove('active'));
+      wrap.classList.add('active');
+      showDetail(node, path);
+    });
+  }
+
+  return wrap;
+}
+
+const treeEl = document.getElementById('tree');
+treeEl.appendChild(buildNode(DATA));
+
+// open the root and level-1 by default
+treeEl.querySelector('.node.lv-0').classList.add('open');
+treeEl.querySelectorAll('.node.lv-1').forEach(n=>n.classList.add('open'));
+treeEl.querySelectorAll('.node.lv-2').forEach(n=>n.classList.add('open'));
+
+// ===== Detail panel =====
+function showDetail(node, path){
+  const detail = document.getElementById('detail');
+  // build crumbs (drop root, drop self)
+  const crumbs = path.slice(1, -1);
+  const enLabel = node.en || '';
+  detail.innerHTML = `
+    <div class="detail-content">
+      <div class="breadcrumb">${crumbs.map(c=>`<span>${c}</span>`).join('') || '<span>政策工具</span>'}</div>
+      <h3>${node.name}</h3>
+      <div class="en-title">${enLabel}</div>
+      <div>
+        ${crumbs.map(c=>`<span class="tag">${c}</span>`).join('')}
+      </div>
+      <div style="margin-top:24px"></div>
+      <div class="section-label">具体内容 · Specific Instruments</div>
+      <ul>
+        ${(node.items||[]).map(it=>`<li>${it}</li>`).join('')}
+      </ul>
+    </div>
+  `;
+}
+
+// ===== Controls =====
+document.getElementById('expandAll').addEventListener('click', ()=>{
+  treeEl.querySelectorAll('.node').forEach(n=>{
+    if(n.querySelector(':scope > .children')) n.classList.add('open');
+  });
+});
+document.getElementById('collapseAll').addEventListener('click', ()=>{
+  treeEl.querySelectorAll('.node:not(.lv-0)').forEach(n=>n.classList.remove('open'));
+});
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  treeEl.querySelectorAll('.node').forEach(n=>{
+    n.classList.remove('match','dim','active');
+    if(n.classList.contains('lv-0')||n.classList.contains('lv-1')||n.classList.contains('lv-2')) n.classList.add('open');
+    else n.classList.remove('open');
+  });
+  document.getElementById('searchInput').value='';
+  document.getElementById('detail').innerHTML = `
+    <div class="detail-empty" id="emptyState">
+      <div class="glyph">币</div>
+      <p>Select a Policy Tool</p>
+      <p class="cn">点击左侧工具节点 · 查看详细内容</p>
+    </div>`;
+});
+
+// ===== Search =====
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', e=>{
+  const q = e.target.value.trim().toLowerCase();
+  const all = treeEl.querySelectorAll('.node');
+  all.forEach(n=>n.classList.remove('match','dim'));
+  if(!q){ return; }
+
+  // find matches by checking the node's own label text AND its items
+  const matched = new Set();
+  all.forEach(n=>{
+    const label = n.querySelector(':scope > .node-line > .label').textContent.toLowerCase();
+    // also search items if this is a leaf
+    let inItems = false;
+    // find data via traversal — easier: search descendants' content
+    if(label.includes(q)) matched.add(n);
+  });
+  // also search through DATA recursively for item-text matches
+  function walk(node, parents){
+    const inItems = (node.items||[]).some(i=>i.toLowerCase().includes(q));
+    if(inItems){
+      // mark this leaf as match
+      const el = treeEl.querySelector(`.node[data-path="${[...parents, node.name].join('›')}"]`);
+      if(el) matched.add(el);
+    }
+    (node.children||[]).forEach(c=>walk(c, [...parents, node.name]));
+  }
+  walk(DATA, []);
+
+  if(matched.size === 0){
+    all.forEach(n=>n.classList.add('dim'));
+    return;
+  }
+
+  // mark matches and open ancestors
+  matched.forEach(n=>{
+    n.classList.add('match');
+    let p = n.parentElement;
+    while(p && p !== treeEl){
+      if(p.classList.contains('node')) p.classList.add('open');
+      p = p.parentElement;
+    }
+  });
+
+  // dim non-matches that have no matched descendants
+  all.forEach(n=>{
+    if(matched.has(n)) return;
+    const hasMatchInside = n.querySelector('.node.match');
+    if(!hasMatchInside) n.classList.add('dim');
+  });
+});
+
+</script>
+</body>
 </html>
