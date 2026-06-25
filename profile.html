@@ -3,606 +3,561 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>货币政策工具 · 知识图谱</title>
+<title>长沙理工大学 · 云南志愿智能分析</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --red:#8B1538;
-  --red-deep:#6E0F2C;
-  --red-soft:#A53A56;
-  --gold:#C9A961;
-  --gold-light:#E8D9A8;
-  --gold-deep:#9A7E3D;
-  --cream:#FAF6EE;
-  --cream-warm:#F2EBD8;
-  --ink:#2B1810;
-  --ink-soft:#4A3528;
+  --bg:#EAEDF1; --bg2:#E2E6EB; --card:#FFFFFF;
+  --ink:#0C2740; --ink2:#143A5C; --ink3:#22507A;
+  --copper:#C77D1F; --copper-l:#E0A03A; --copper-bg:#FBF2E3;
+  --safe:#0F8463; --safe-bg:#E6F4EF;
+  --stable:#2C68A8; --stable-bg:#E8F0F8;
+  --rush:#C5462C; --rush-bg:#FBEAE6;
+  --risk:#8A4FB0;
+  --t1:#101E2C; --t2:#46586A; --t3:#7C8B9B; --line:#DCE2E8; --line2:#EAEEF2;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --disp:'Space Grotesk','Noto Sans SC',sans-serif;
+  --body:'Noto Sans SC','Space Grotesk',system-ui,sans-serif;
+  --sh:0 1px 2px rgba(12,39,64,.04),0 8px 24px -12px rgba(12,39,64,.12);
+  --sh2:0 1px 2px rgba(12,39,64,.05),0 18px 40px -18px rgba(12,39,64,.22);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{
-  font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
-  background:var(--cream);
-  color:var(--ink);
-  line-height:1.6;
-  overflow-x:hidden;
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,169,97,.18), transparent 60%),
-    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(139,21,56,.08), transparent 60%);
-}
-/* faint paper texture */
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(139,21,56,.012) 0, rgba(139,21,56,.012) 1px, transparent 1px, transparent 3px),
-    repeating-linear-gradient(90deg, rgba(201,169,97,.012) 0, rgba(201,169,97,.012) 1px, transparent 1px, transparent 3px);
-}
-.wrap{position:relative;z-index:1;max-width:1480px;margin:0 auto;padding:32px 28px 80px}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:
+  radial-gradient(1200px 500px at 80% -10%,rgba(199,125,31,.07),transparent 60%),
+  radial-gradient(900px 500px at -5% 0%,rgba(20,58,92,.06),transparent 55%),
+  var(--bg);
+  color:var(--t1);line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.disp{font-family:var(--disp)}
 
-/* ---------- Header ---------- */
-header{
-  text-align:center;padding:28px 0 24px;border-bottom:1px solid rgba(201,169,97,.4);
-  position:relative;
-}
-header::before,header::after{
-  content:'';position:absolute;left:50%;height:1px;background:var(--gold);
-}
-header::before{bottom:-5px;width:80px;transform:translateX(-50%)}
-header::after{bottom:-9px;width:30px;transform:translateX(-50%);opacity:.6}
-.eyebrow{
-  font-family:'Cormorant Garamond',serif;
-  letter-spacing:.42em;font-size:11.5px;color:var(--gold-deep);
-  text-transform:uppercase;margin-bottom:14px;
-}
-h1{
-  font-family:'Noto Serif SC',serif;font-weight:900;
-  font-size:clamp(28px,3.4vw,46px);
-  color:var(--red);
-  letter-spacing:.08em;
-  margin-bottom:8px;
-}
-h1 .dot{
-  display:inline-block;width:6px;height:6px;background:var(--gold);
-  border-radius:50%;margin:0 18px;vertical-align:middle;
-  box-shadow:0 0 0 4px rgba(201,169,97,.18);
-}
-.subtitle{
-  font-family:'Cormorant Garamond',serif;font-style:italic;
-  color:var(--ink-soft);font-size:15px;letter-spacing:.04em;
-}
-.subtitle .cn{font-family:'Noto Serif SC',serif;font-style:normal;color:var(--red-soft);margin-left:10px}
+/* ===== HERO ===== */
+.hero{background:linear-gradient(160deg,#0C2740 0%,#143A5C 55%,#1B4A72 100%);color:#fff;position:relative;overflow:hidden;border-bottom:3px solid var(--copper)}
+.hero::after{content:"";position:absolute;inset:0;opacity:.5;background-image:
+  linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:38px 38px;mask:radial-gradient(700px 360px at 78% 18%,#000,transparent 75%)}
+.hero .wrap{position:relative;z-index:2;padding:30px 22px 34px}
+.brandrow{display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+.seal{width:46px;height:46px;border:1.5px solid rgba(255,255,255,.55);border-radius:11px;display:grid;place-items:center;font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:1px;background:rgba(255,255,255,.06)}
+.brand h1{font-family:var(--body);font-weight:900;font-size:23px;letter-spacing:.5px;line-height:1.25}
+.brand .en{font-family:var(--disp);font-weight:500;font-size:11px;letter-spacing:2.5px;color:#9FC2E0;text-transform:uppercase;margin-top:1px}
+.tag-ai{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-family:var(--disp);font-size:11.5px;font-weight:600;letter-spacing:1.5px;color:#F1D2A0;border:1px solid rgba(224,160,58,.5);background:rgba(224,160,58,.12);padding:6px 12px;border-radius:100px}
+.tag-ai .dot{width:6px;height:6px;border-radius:50%;background:var(--copper-l);box-shadow:0 0 0 0 rgba(224,160,58,.7);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(224,160,58,.6)}70%{box-shadow:0 0 0 7px rgba(224,160,58,0)}100%{box-shadow:0 0 0 0 rgba(224,160,58,0)}}
+.lead{margin-top:18px;max-width:660px;font-size:14px;color:#CFE0EE;line-height:1.7}
+.lead b{color:#fff;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.chip{display:flex;flex-direction:column;gap:1px;padding:9px 14px;border-radius:11px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13)}
+.chip .n{font-family:var(--disp);font-weight:700;font-size:17px;color:#F1D2A0}
+.chip .l{font-size:11px;color:#A9C4DD;letter-spacing:.3px}
 
-/* ---------- Controls bar ---------- */
-.controls{
-  display:flex;align-items:center;gap:16px;margin:28px 0 24px;
-  flex-wrap:wrap;
-}
-.search{
-  flex:1;min-width:260px;position:relative;
-}
-.search input{
-  width:100%;padding:13px 18px 13px 46px;
-  background:rgba(255,255,255,.65);
-  border:1px solid rgba(201,169,97,.55);
-  border-radius:2px;
-  font-family:'Noto Sans SC',sans-serif;
-  font-size:14px;color:var(--ink);
-  letter-spacing:.04em;
-  transition:all .25s;
-  backdrop-filter:blur(6px);
-}
-.search input::placeholder{color:#8b7a6e;font-weight:300}
-.search input:focus{
-  outline:none;border-color:var(--red);
-  background:rgba(255,255,255,.85);
-  box-shadow:0 0 0 3px rgba(139,21,56,.08);
-}
-.search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--gold-deep)}
-.actions{display:flex;gap:10px;flex-wrap:wrap}
-.btn{
-  padding:11px 20px;border:1px solid var(--red);
-  background:transparent;color:var(--red);
-  font-family:'Noto Sans SC',sans-serif;font-size:13px;
-  letter-spacing:.12em;cursor:pointer;border-radius:2px;
-  transition:all .22s;font-weight:500;
-}
-.btn:hover{background:var(--red);color:var(--cream)}
-.btn.primary{background:var(--red);color:var(--cream)}
-.btn.primary:hover{background:var(--red-deep);border-color:var(--red-deep)}
-.btn.gold{border-color:var(--gold-deep);color:var(--gold-deep)}
-.btn.gold:hover{background:var(--gold-deep);color:var(--cream)}
+/* ===== CONSOLE ===== */
+.console{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh2);margin-top:-26px;position:relative;z-index:5;overflow:hidden}
+.console-h{display:flex;align-items:center;gap:10px;padding:15px 22px;border-bottom:1px solid var(--line2);background:linear-gradient(180deg,#fff,#FAFBFC)}
+.console-h .k{font-family:var(--disp);font-weight:600;font-size:11px;letter-spacing:2px;color:var(--copper);text-transform:uppercase}
+.console-h .t{font-weight:700;font-size:15px;color:var(--t1)}
+.console-h .step{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--t3)}
+.cbody{padding:20px 22px 22px}
+.field{margin-bottom:17px}
+.field>label{display:block;font-size:12.5px;font-weight:700;color:var(--t2);margin-bottom:8px;letter-spacing:.2px}
+.field .hint{font-weight:400;color:var(--t3);font-size:11.5px;margin-left:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.seg{display:inline-flex;background:var(--bg2);border-radius:11px;padding:4px;gap:4px;border:1px solid var(--line)}
+.seg button{font-family:var(--body);font-weight:700;font-size:13.5px;color:var(--t2);background:none;border:none;padding:9px 18px;border-radius:8px;cursor:pointer;transition:.18s}
+.seg button.on{background:#fff;color:var(--ink2);box-shadow:0 1px 3px rgba(12,39,64,.14)}
+.seg.copper button.on{color:var(--copper)}
+.numwrap{position:relative}
+.numwrap input{width:100%;font-family:var(--mono);font-weight:600;font-size:21px;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;transition:.18s;letter-spacing:.5px}
+.numwrap input:focus{outline:none;border-color:var(--copper);background:#fff;box-shadow:0 0 0 4px rgba(199,125,31,.1)}
+.numwrap input::placeholder{color:#B7C2CD;font-weight:400}
+.numwrap .unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--t3);font-family:var(--body);pointer-events:none}
+.intro-chips{display:flex;flex-wrap:wrap;gap:8px}
+.ic{font-size:12.5px;font-weight:500;color:var(--t2);background:var(--bg);border:1.5px solid var(--line);padding:7px 13px;border-radius:100px;cursor:pointer;transition:.16s;user-select:none}
+.ic:hover{border-color:var(--ink3);color:var(--ink2)}
+.ic.on{background:var(--ink2);border-color:var(--ink2);color:#fff}
+.runrow{display:flex;align-items:center;gap:14px;margin-top:6px;flex-wrap:wrap}
+.run{font-family:var(--body);font-weight:700;font-size:15px;color:#fff;background:linear-gradient(135deg,var(--copper),var(--copper-l));border:none;padding:14px 30px;border-radius:12px;cursor:pointer;box-shadow:0 6px 18px -6px rgba(199,125,31,.6);transition:.18s;display:inline-flex;align-items:center;gap:9px}
+.run:hover{transform:translateY(-1px);box-shadow:0 10px 24px -8px rgba(199,125,31,.7)}
+.run:active{transform:translateY(0)}
+.run .ar{font-family:var(--disp)}
+.err{color:var(--rush);font-size:12.5px;font-weight:600}
+.percentile{font-size:12px;color:var(--t2);font-family:var(--mono)}
+.percentile b{color:var(--ink2)}
 
-/* ---------- Stats strip ---------- */
-.stats{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px;
-}
-.stat{
-  border:1px solid rgba(201,169,97,.4);
-  background:rgba(255,255,255,.4);
-  padding:18px 20px;border-radius:2px;
-  display:flex;align-items:baseline;justify-content:space-between;
-  position:relative;overflow:hidden;
-}
-.stat::before{
-  content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--red);
-}
-.stat .num{
-  font-family:'Cormorant Garamond',serif;font-weight:700;
-  font-size:32px;color:var(--red);line-height:1;
-}
-.stat .lbl{font-size:11.5px;letter-spacing:.22em;color:var(--ink-soft);text-transform:uppercase}
-.stat .cn{font-size:12px;color:var(--ink-soft);letter-spacing:.16em;margin-top:2px;display:block}
+/* ===== RESULTS ===== */
+#results{margin-top:30px;display:none}
+#results.show{display:block;animation:rise .5s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.sec-h{display:flex;align-items:baseline;gap:12px;margin:34px 2px 16px}
+.sec-h .idx{font-family:var(--disp);font-weight:700;font-size:12px;color:var(--copper);letter-spacing:1px}
+.sec-h h2{font-size:18px;font-weight:900;letter-spacing:.3px}
+.sec-h .sub{font-size:12.5px;color:var(--t3);margin-left:auto}
 
-/* ---------- Main grid ---------- */
-.grid{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start}
-@media(max-width:1100px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+/* dashboard */
+.dash{display:grid;grid-template-columns:1.15fr 1fr 1fr 1fr;gap:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:17px 18px;box-shadow:var(--sh)}
+.stat .lab{font-size:11.5px;color:var(--t3);font-weight:600;letter-spacing:.4px;display:flex;align-items:center;gap:6px}
+.stat .big{font-family:var(--disp);font-weight:700;font-size:34px;line-height:1.1;margin-top:6px;color:var(--ink)}
+.stat .big small{font-size:14px;color:var(--t3);font-weight:500;margin-left:3px}
+.stat.feat{background:linear-gradient(155deg,#102E4B,#1B4A72);border-color:#1B4A72;color:#fff}
+.stat.feat .lab{color:#A9C4DD}
+.stat.feat .big{color:#F1D2A0}
+.stat .pill{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px;margin-top:8px}
+.bardot{width:9px;height:9px;border-radius:3px;display:inline-block}
 
-/* ---------- Tree panel ---------- */
-.panel{
-  background:linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.3));
-  border:1px solid rgba(201,169,97,.4);
-  border-radius:3px;
-  padding:30px 26px;
-  position:relative;
-  backdrop-filter:blur(8px);
-}
-.panel::before,.panel::after{
-  content:'';position:absolute;width:18px;height:18px;
-  border:1.5px solid var(--gold);
-}
-.panel::before{top:8px;left:8px;border-right:none;border-bottom:none}
-.panel::after{bottom:8px;right:8px;border-left:none;border-top:none}
-.panel-title{
-  display:flex;align-items:center;gap:14px;margin-bottom:22px;
-  padding-bottom:14px;border-bottom:1px dashed rgba(201,169,97,.5);
-}
-.panel-title h2{
-  font-family:'Noto Serif SC',serif;font-weight:700;
-  font-size:18px;color:var(--red);letter-spacing:.1em;
-}
-.panel-title .en{
-  font-family:'Cormorant Garamond',serif;font-style:italic;
-  color:var(--gold-deep);font-size:13px;letter-spacing:.18em;margin-left:auto;
-}
+/* axis */
+.axis-card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:20px 22px 14px;box-shadow:var(--sh);margin-top:14px}
+.axis-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.axis-top .ti{font-weight:800;font-size:14.5px}
+.axis-top .ti span{color:var(--t3);font-weight:500;font-size:12px;margin-left:8px}
+.legend{display:flex;gap:14px;font-size:11.5px;color:var(--t2);flex-wrap:wrap}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:-1px}
+.axis{position:relative;height:118px;margin:0 4px}
+.axis-track{position:absolute;left:0;right:0;top:64px;height:13px;border-radius:7px;display:flex;overflow:hidden;border:1px solid var(--line)}
+.zone{height:100%}
+.zone.z-rush{background:repeating-linear-gradient(45deg,#FBEAE6,#FBEAE6 6px,#F7E0DA 6px,#F7E0DA 12px)}
+.zone.z-stable{background:var(--stable-bg)}
+.zone.z-safe{background:var(--safe-bg)}
+.zlabel{position:absolute;top:84px;font-size:11px;font-weight:700;font-family:var(--disp);letter-spacing:.5px;transform:translateX(-50%)}
+.tickrank{position:absolute;top:104px;font-family:var(--mono);font-size:10px;color:var(--t3);transform:translateX(-50%)}
+.mk{position:absolute;top:50px;width:2px;height:40px;transform:translateX(-50%)}
+.mk i{position:absolute;top:-3px;left:50%;transform:translateX(-50%);width:7px;height:7px;border-radius:50%}
+.me{position:absolute;top:6px;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center}
+.me .flag{background:var(--ink);color:#fff;font-family:var(--mono);font-weight:700;font-size:11px;padding:4px 9px;border-radius:7px;white-space:nowrap;box-shadow:0 4px 10px -3px rgba(12,39,64,.5);position:relative}
+.me .flag::after{content:"";position:absolute;left:50%;bottom:-5px;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--ink)}
+.me .stem{width:2px;height:50px;background:var(--ink);margin-top:2px}
+.me .stem::after{content:"";position:absolute;bottom:-3px;left:-2px;width:6px;height:6px;border-radius:50%;background:var(--ink)}
 
-/* ---------- Tree ---------- */
-.tree{font-family:'Noto Serif SC',serif}
-.node{position:relative;margin-left:0}
-.node-line{display:flex;align-items:center;gap:10px;padding:6px 0;cursor:pointer;user-select:none}
-.node-line:hover .label{color:var(--red)}
-.label{
-  font-size:15px;color:var(--ink);letter-spacing:.06em;font-weight:500;
-  transition:color .2s;
-  position:relative;padding:6px 14px;border-radius:2px;
-}
-.toggle{
-  width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;
-  border:1px solid var(--gold);color:var(--gold-deep);font-family:'Cormorant Garamond',serif;
-  font-size:13px;font-weight:700;background:var(--cream);
-  border-radius:50%;flex:none;transition:all .22s;
-}
-.node.open > .node-line > .toggle{
-  background:var(--red);color:var(--cream);border-color:var(--red);transform:rotate(45deg);
-}
-.toggle.empty{visibility:hidden}
+/* category groups */
+.catbar{display:flex;align-items:center;gap:11px;margin:26px 2px 12px;padding-bottom:9px;border-bottom:2px solid var(--line)}
+.catbar .badge{font-family:var(--disp);font-weight:700;font-size:13px;color:#fff;width:30px;height:30px;border-radius:9px;display:grid;place-items:center}
+.catbar h3{font-size:16px;font-weight:900}
+.catbar .desc{font-size:12px;color:var(--t3)}
+.catbar .cnt{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--t2);background:var(--bg2);padding:3px 11px;border-radius:8px}
+.b-safe{background:var(--safe)} .b-stable{background:var(--stable)} .b-rush{background:var(--rush)}
+.t-safe{color:var(--safe)} .t-stable{color:var(--stable)} .t-rush{color:var(--rush)}
 
-/* Node level styling */
-.node.lv-0 > .node-line > .label{
-  font-size:20px;color:var(--cream);background:var(--red);
-  padding:10px 22px;font-weight:700;letter-spacing:.18em;
-  box-shadow:0 0 0 1px var(--gold) inset, 0 4px 0 0 var(--red-deep);
-}
-.node.lv-1 > .node-line > .label{
-  font-size:16px;color:var(--ink);background:var(--gold-light);
-  padding:8px 18px;font-weight:700;letter-spacing:.12em;
-  border-left:3px solid var(--red);
-}
-.node.lv-2 > .node-line > .label{
-  font-size:14px;color:var(--red);background:transparent;
-  padding:6px 14px;font-weight:700;letter-spacing:.08em;
-  border-bottom:1px solid var(--gold);
-}
-.node.lv-3 > .node-line > .label{
-  font-size:14px;color:var(--cream);background:var(--red-soft);
-  padding:6px 14px;font-weight:500;letter-spacing:.06em;
-}
-.node.lv-3 > .node-line:hover > .label{background:var(--red)}
-.node.lv-3.active > .node-line > .label{
-  background:var(--red);box-shadow:0 0 0 2px var(--gold);
-}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}
+.mcard{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px 16px 14px;box-shadow:var(--sh);position:relative;transition:.18s;border-left:4px solid var(--line)}
+.mcard:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.mcard.c-safe{border-left-color:var(--safe)}
+.mcard.c-stable{border-left-color:var(--stable)}
+.mcard.c-rush{border-left-color:var(--rush)}
+.mc-top{display:flex;align-items:flex-start;gap:10px}
+.mc-name{font-weight:800;font-size:15.5px;line-height:1.3}
+.mc-grp{font-size:11px;color:var(--t3);margin-top:2px}
+.prob{margin-left:auto;text-align:right;flex-shrink:0}
+.prob .pv{font-family:var(--disp);font-weight:700;font-size:25px;line-height:1}
+.prob .pl{font-size:10px;color:var(--t3);letter-spacing:.5px}
+.tierbadge{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:6px;margin-top:7px}
+.tb-ace{background:var(--copper-bg);color:#A5631A}
+.tb-strong{background:#E8F0F8;color:#235A8C}
+.tb-good{background:var(--bg2);color:var(--t2)}
+.stars{font-size:10px;letter-spacing:1px;color:var(--copper-l)}
+.probbar{height:7px;background:var(--bg2);border-radius:4px;margin:11px 0 10px;overflow:hidden}
+.probbar i{display:block;height:100%;border-radius:4px;transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.metrics{display:flex;gap:0;border-top:1px solid var(--line2);padding-top:10px}
+.metrics .m{flex:1;border-right:1px solid var(--line2);padding:0 9px}
+.metrics .m:first-child{padding-left:0}
+.metrics .m:last-child{border-right:none;padding-right:0}
+.metrics .mv{font-family:var(--mono);font-weight:600;font-size:14px;color:var(--ink)}
+.metrics .mk2{font-size:10px;color:var(--t3);margin-top:1px}
+.trend{display:flex;align-items:flex-end;gap:3px;height:22px;margin-top:2px}
+.trend .tbar{width:7px;background:var(--ink3);border-radius:2px 2px 0 0;opacity:.85}
+.blurb{font-size:11.5px;color:var(--t2);line-height:1.55;margin-top:11px;padding:9px 11px;background:var(--copper-bg);border-radius:9px;border:1px solid #F0E2C8}
+.blurb b{color:#A5631A}
+.lowconf{font-size:10.5px;color:var(--risk);font-weight:600;margin-top:9px;display:flex;align-items:center;gap:5px}
+.empty{grid-column:1/-1;text-align:center;color:var(--t3);font-size:13px;padding:26px;background:var(--card);border:1px dashed var(--line);border-radius:14px}
 
-.children{
-  margin-left:32px;padding-left:22px;position:relative;
-  border-left:1px dashed rgba(201,169,97,.6);
-  max-height:0;overflow:hidden;
-  transition:max-height .45s ease;
-}
-.node.open > .children{max-height:8000px}
-.children > .node{position:relative}
-.children > .node::before{
-  content:'';position:absolute;left:-22px;top:18px;width:18px;height:1px;
-  background:rgba(201,169,97,.6);
-}
+/* ace panel */
+.acepanel{background:linear-gradient(160deg,#0C2740,#163E60);border-radius:18px;padding:24px;color:#fff;margin-top:14px;position:relative;overflow:hidden}
+.acepanel::before{content:"";position:absolute;right:-40px;top:-40px;width:220px;height:220px;border:1px solid rgba(224,160,58,.25);border-radius:50%}
+.acepanel::after{content:"";position:absolute;right:10px;top:10px;width:150px;height:150px;border:1px solid rgba(224,160,58,.18);border-radius:50%}
+.ace-h{font-weight:900;font-size:16px;position:relative;z-index:2}
+.ace-h span{color:#F1D2A0}
+.ace-sub{font-size:12.5px;color:#B7D0E6;margin-top:4px;position:relative;z-index:2;max-width:600px}
+.acegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px;position:relative;z-index:2}
+.acex{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:13px}
+.acex .nm{font-weight:700;font-size:13.5px;color:#fff}
+.acex .ds{font-size:11px;color:#9FC2E0;margin-top:4px;line-height:1.5}
+.acex .st{font-size:10px;color:#F1D2A0;letter-spacing:1px;margin-top:8px}
 
-/* highlight for search */
-.match > .node-line > .label{
-  box-shadow:0 0 0 2px var(--gold);
-}
-.dim{opacity:.28;pointer-events:none}
+.note{font-size:11.5px;color:var(--t3);line-height:1.7;margin-top:20px;padding:15px 17px;background:var(--card);border:1px solid var(--line);border-radius:13px}
+.note b{color:var(--t2)}
+.foot{text-align:center;font-size:11px;color:var(--t3);margin-top:26px;line-height:1.7}
 
-/* ---------- Detail panel ---------- */
-.detail{
-  position:sticky;top:24px;
-  background:linear-gradient(180deg, rgba(139,21,56,.04), rgba(255,255,255,.7));
-  border:1px solid rgba(201,169,97,.5);
-  padding:30px 26px;border-radius:3px;
-  min-height:400px;
-  position:sticky;top:24px;
+@media(max-width:840px){
+  .dash{grid-template-columns:1fr 1fr}
+  .acegrid{grid-template-columns:1fr 1fr}
+  .cards{grid-template-columns:1fr}
 }
-.detail::before,.detail::after{
-  content:'';position:absolute;width:22px;height:22px;border:1.5px solid var(--red);
+@media(max-width:560px){
+  .grid2{grid-template-columns:1fr}
+  .brand h1{font-size:19px}
+  .tag-ai{margin-left:0}
+  .dash{grid-template-columns:1fr 1fr}
+  .acegrid{grid-template-columns:1fr}
+  .me .flag{font-size:10px}
 }
-.detail::before{top:10px;right:10px;border-left:none;border-bottom:none}
-.detail::after{bottom:10px;left:10px;border-right:none;border-top:none}
-
-.detail-empty{
-  text-align:center;padding:60px 20px;
-  color:var(--ink-soft);
-}
-.detail-empty .glyph{
-  font-family:'Noto Serif SC',serif;font-size:56px;color:var(--gold);
-  opacity:.55;margin-bottom:16px;
-}
-.detail-empty p{font-size:13px;letter-spacing:.22em;color:var(--gold-deep);text-transform:uppercase;font-family:'Cormorant Garamond',serif;font-style:italic}
-.detail-empty p.cn{font-family:'Noto Sans SC',sans-serif;font-style:normal;text-transform:none;letter-spacing:.18em;font-size:13px;margin-top:8px;color:var(--ink-soft)}
-
-.breadcrumb{
-  display:flex;flex-wrap:wrap;gap:6px;font-size:11px;
-  letter-spacing:.2em;color:var(--gold-deep);margin-bottom:16px;text-transform:uppercase;
-  font-family:'Cormorant Garamond',serif;font-weight:600;
-}
-.breadcrumb span:not(:last-child)::after{content:'›';margin-left:6px;color:var(--gold)}
-
-.detail h3{
-  font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;
-  color:var(--red);letter-spacing:.1em;margin-bottom:6px;
-}
-.detail .en-title{
-  font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-deep);
-  font-size:14px;letter-spacing:.16em;margin-bottom:20px;
-  padding-bottom:14px;border-bottom:1px dashed rgba(201,169,97,.5);
-}
-.detail .section-label{
-  font-family:'Cormorant Garamond',serif;font-weight:600;
-  color:var(--red);font-size:12px;letter-spacing:.3em;text-transform:uppercase;
-  margin-bottom:14px;
-}
-.detail .section-label::before{
-  content:'';display:inline-block;width:18px;height:1px;background:var(--gold);
-  vertical-align:middle;margin-right:10px;
-}
-.detail ul{list-style:none}
-.detail li{
-  padding:10px 0 10px 22px;position:relative;
-  font-family:'Noto Serif SC',serif;font-size:14px;color:var(--ink);
-  letter-spacing:.04em;line-height:1.7;
-  border-bottom:1px dotted rgba(201,169,97,.4);
-}
-.detail li:last-child{border-bottom:none}
-.detail li::before{
-  content:'◆';position:absolute;left:0;top:11px;color:var(--gold);font-size:10px;
-}
-.tag{
-  display:inline-block;padding:4px 10px;border:1px solid var(--gold);
-  color:var(--gold-deep);font-size:10.5px;letter-spacing:.22em;
-  border-radius:1px;margin-right:6px;margin-bottom:6px;
-  font-family:'Noto Sans SC',sans-serif;font-weight:500;text-transform:uppercase;
-}
-
-/* footer */
-footer{
-  margin-top:60px;padding-top:20px;
-  border-top:1px solid rgba(201,169,97,.4);
-  text-align:center;color:var(--ink-soft);font-size:12px;letter-spacing:.18em;
-  font-family:'Noto Serif SC',serif;font-style:italic;
-}
-footer .seal{
-  display:inline-block;width:34px;height:34px;border:1.5px solid var(--red);
-  color:var(--red);font-weight:700;font-family:'Noto Serif SC',serif;font-size:11px;
-  line-height:30px;text-align:center;border-radius:50%;margin-bottom:10px;
-  font-style:normal;letter-spacing:0;
-}
-
-/* animation */
-@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.detail-content > *{animation:rise .35s ease both}
-.detail-content > *:nth-child(2){animation-delay:.05s}
-.detail-content > *:nth-child(3){animation-delay:.1s}
-.detail-content > *:nth-child(4){animation-delay:.15s}
-.detail-content > *:nth-child(5){animation-delay:.2s}
-
-/* scrollbar */
-::-webkit-scrollbar{width:8px;height:8px}
-::-webkit-scrollbar-track{background:var(--cream-warm)}
-::-webkit-scrollbar-thumb{background:var(--gold);border-radius:1px}
-::-webkit-scrollbar-thumb:hover{background:var(--gold-deep)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<header>
-  <div class="eyebrow">People's Bank of China — Policy Architecture</div>
-  <h1>货币政策工具<span class="dot"></span>知识图谱</h1>
-  <div class="subtitle">Monetary Policy Toolkit<span class="cn">一图读懂中国央行政策工具体系</span></div>
+<header class="hero">
+  <div class="wrap">
+    <div class="brandrow">
+      <div class="seal disp">长理<br></div>
+      <div class="brand">
+        <h1>长沙理工大学 · 志愿智能分析</h1>
+        <div class="en">CSUST · YUNNAN ADMISSION INTELLIGENCE · 2026</div>
+      </div>
+      <div class="tag-ai"><span class="dot"></span>AI 位次智能测算</div>
+    </div>
+    <p class="lead">长沙理工大学由原<b>交通部长沙交通学院</b>与原<b>电力部长沙电力学院</b>等四校合并组建，是湖南省“国内一流大学建设高校(A类)”，以<b>交通·电力·水利·轻工</b>行业特色见长。本工具基于学校近三年云南录取数据，按<b>位次法</b>为你科学测算各专业录取概率，并完成<b>冲 / 稳 / 保</b>梯度推荐。</p>
+    <div class="chips">
+      <div class="chip"><span class="n">43</span><span class="l">国家级一流本科专业</span></div>
+      <div class="chip"><span class="n">9</span><span class="l">国家级特色专业</span></div>
+      <div class="chip"><span class="n">8</span><span class="l">学科 ESI 全球前1%</span></div>
+      <div class="chip"><span class="n">5</span><span class="l">国家级科研平台</span></div>
+      <div class="chip"><span class="n">~70%</span><span class="l">就业专业对口率</span></div>
+    </div>
+  </div>
 </header>
 
-<div class="controls">
-  <div class="search">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" id="searchInput" placeholder="搜索工具名称…  例如：SLF、LPR、专项再贷款" />
-  </div>
-  <div class="actions">
-    <button class="btn primary" id="expandAll">展开全部</button>
-    <button class="btn" id="collapseAll">折叠全部</button>
-    <button class="btn gold" id="resetBtn">重置</button>
-  </div>
-</div>
-
-<div class="stats">
-  <div class="stat"><div><div class="num" id="statTypes">3</div><span class="cn">主类</span></div><span class="lbl">Types</span></div>
-  <div class="stat"><div><div class="num" id="statCats">5</div><span class="cn">分类</span></div><span class="lbl">Categories</span></div>
-  <div class="stat"><div><div class="num" id="statTools">10</div><span class="cn">工具</span></div><span class="lbl">Tools</span></div>
-  <div class="stat"><div><div class="num" id="statItems">38</div><span class="cn">具体内容</span></div><span class="lbl">Items</span></div>
-</div>
-
-<div class="grid">
-  <div class="panel">
-    <div class="panel-title">
-      <h2>政策工具树</h2>
-      <span class="en">Hierarchical View</span>
+<div class="wrap">
+  <section class="console">
+    <div class="console-h">
+      <span class="k">INPUT</span>
+      <span class="t">填写你的高考信息</span>
+      <span class="step mono">01 / 测算</span>
     </div>
-    <div id="tree" class="tree"></div>
-  </div>
-
-  <aside class="detail" id="detail">
-    <div class="detail-empty" id="emptyState">
-      <div class="glyph">币</div>
-      <p>Select a Policy Tool</p>
-      <p class="cn">点击左侧工具节点 · 查看详细内容</p>
-    </div>
-  </aside>
-</div>
-
-<footer>
-  <div class="seal">央<br></div>
-  <div>中国人民银行  ·  货币政策工具体系</div>
-  <div style="font-style:normal;color:var(--gold-deep);margin-top:6px;letter-spacing:.3em;font-family:'Cormorant Garamond',serif">— A R C H I T E C T U R E   O F   M O N E T A R Y   I N S T R U M E N T S —</div>
-</footer>
-
-</div>
-
-<script>
-// ===== Data model =====
-const DATA = {
-  name:'货币政策工具', level:0, en:'Monetary Policy Toolkit',
-  children:[
-    { name:'数量型工具', level:1, en:'Quantitative Tools',
-      desc:'通过调控货币数量及流动性总量影响经济',
-      children:[
-        { name:'总量', level:2, en:'Aggregate',
-          children:[
-            { name:'公开市场操作', level:3, en:'Open Market Operations',
-              items:['回购交易','现券交易','发行央行票据','国库现金定存','短期流动性调节工具（SLO）','临时流动性便利（TLF）','证券、基金、保险公司互换便利（SFISF）'] },
-            { name:'存款准备金', level:3, en:'Reserve Requirements',
-              items:['超额准备金利率','临时准备金动用安排（CRA）'] },
-            { name:'流动性再贷款', level:3, en:'Liquidity Relending',
-              items:['常备借贷便利（SLF）','中期借贷便利（MLF）'] },
-          ]
-        },
-        { name:'结构', level:2, en:'Structural',
-          children:[
-            { name:'信贷支持再贷款', level:3, en:'Credit-Support Relending',
-              items:['支农再贷款','支小再贷款','再贴现'] },
-            { name:'专项政策再贷款', level:3, en:'Special-Purpose Relending',
-              items:['普惠小微贷款支持工具','抵押补充贷款（PSL）','碳减排支持工具','科技创新再贷款','交通物流专项再贷款','设备更新改造专项再贷款','收费公路贷款支持工具','民营企业债券融资支持工具（第二期）','保交楼贷款支持计划','房企纾困专项再贷款','科技创新和技术改造再贷款','保障性住房再贷款'] },
-            { name:'金融稳定再贷款', level:3, en:'Financial Stability Relending',
-              items:['股票回购增持专项再贷款'] },
-          ]
-        }
-      ]
-    },
-    { name:'价格型工具', level:1, en:'Price Tools',
-      desc:'通过调控利率影响资金价格与配置',
-      children:[
-        { name:'政策利率', level:3, en:'Policy Rates',
-          items:['存贷款基准利率','逆回购操作利率（MLF利率）','贷款市场报价利率（LPR）'] }
-      ]
-    },
-    { name:'沟通型工具', level:1, en:'Communication Tools',
-      desc:'通过预期管理引导市场行为',
-      children:[
-        { name:'书面沟通工具', level:3, en:'Written Communication',
-          items:['货币政策执行报告','货币政策委员会会议新闻稿','公开市场操作公告'] },
-        { name:'口头沟通工具', level:3, en:'Verbal Communication',
-          items:['讲话和新闻发布会','窗口指导'] },
-        { name:'新媒体沟通工具', level:3, en:'New-Media Communication',
-          items:['社交媒体'] },
-      ]
-    }
-  ]
-};
-
-// ===== Stats =====
-function countStats(){
-  let cats=0, tools=0, items=0;
-  function walk(n, depth){
-    if(n.level===2) cats++;
-    if(n.level===3){ tools++; items += (n.items||[]).length }
-    (n.children||[]).forEach(c=>walk(c, depth+1));
-  }
-  walk(DATA, 0);
-  document.getElementById('statCats').textContent = cats;
-  document.getElementById('statTools').textContent = tools;
-  document.getElementById('statItems').textContent = items;
-}
-countStats();
-
-// ===== Build tree DOM =====
-function buildNode(node, parentPath=[]){
-  const path = [...parentPath, node.name];
-  const wrap = document.createElement('div');
-  wrap.className = `node lv-${node.level}`;
-  wrap.dataset.name = node.name;
-  wrap.dataset.path = path.join('›');
-
-  const line = document.createElement('div');
-  line.className = 'node-line';
-
-  const toggle = document.createElement('span');
-  toggle.className = 'toggle' + ((node.children && node.children.length) ? '' : (node.items ? '' : ' empty'));
-  toggle.textContent = (node.children && node.children.length) ? '+' : (node.items ? '·' : '');
-
-  const label = document.createElement('span');
-  label.className = 'label';
-  label.textContent = node.name;
-
-  line.appendChild(toggle);
-  line.appendChild(label);
-  wrap.appendChild(line);
-
-  // children
-  if(node.children && node.children.length){
-    const childBox = document.createElement('div');
-    childBox.className = 'children';
-    node.children.forEach(c => childBox.appendChild(buildNode(c, path)));
-    wrap.appendChild(childBox);
-    line.addEventListener('click', e=>{
-      e.stopPropagation();
-      wrap.classList.toggle('open');
-    });
-  } else {
-    // leaf — toggle is a dot, click opens detail
-    line.addEventListener('click', e=>{
-      e.stopPropagation();
-      document.querySelectorAll('.node.lv-3.active').forEach(n=>n.classList.remove('active'));
-      wrap.classList.add('active');
-      showDetail(node, path);
-    });
-  }
-
-  return wrap;
-}
-
-const treeEl = document.getElementById('tree');
-treeEl.appendChild(buildNode(DATA));
-
-// open the root and level-1 by default
-treeEl.querySelector('.node.lv-0').classList.add('open');
-treeEl.querySelectorAll('.node.lv-1').forEach(n=>n.classList.add('open'));
-treeEl.querySelectorAll('.node.lv-2').forEach(n=>n.classList.add('open'));
-
-// ===== Detail panel =====
-function showDetail(node, path){
-  const detail = document.getElementById('detail');
-  // build crumbs (drop root, drop self)
-  const crumbs = path.slice(1, -1);
-  const enLabel = node.en || '';
-  detail.innerHTML = `
-    <div class="detail-content">
-      <div class="breadcrumb">${crumbs.map(c=>`<span>${c}</span>`).join('') || '<span>政策工具</span>'}</div>
-      <h3>${node.name}</h3>
-      <div class="en-title">${enLabel}</div>
-      <div>
-        ${crumbs.map(c=>`<span class="tag">${c}</span>`).join('')}
+    <div class="cbody">
+      <div class="field">
+        <label>首选科目 <span class="hint">3+1+2 物理 / 历史</span></label>
+        <div class="seg copper" id="segTrack">
+          <button data-v="物理" class="on">物理类</button>
+          <button data-v="历史">历史类</button>
+        </div>
       </div>
-      <div style="margin-top:24px"></div>
-      <div class="section-label">具体内容 · Specific Instruments</div>
-      <ul>
-        ${(node.items||[]).map(it=>`<li>${it}</li>`).join('')}
-      </ul>
+      <div class="field" id="chemField">
+        <label>是否选考化学 <span class="hint">长理多数工科要求“再选化学”</span></label>
+        <div class="seg" id="segChem">
+          <button data-v="1" class="on">已选化学</button>
+          <button data-v="0">未选化学</button>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label>高考分数</label>
+          <div class="numwrap"><input id="inScore" type="number" inputmode="numeric" placeholder="例：560"><span class="unit">分</span></div>
+        </div>
+        <div class="field">
+          <label>全省位次 <span class="hint">最关键</span></label>
+          <div class="numwrap"><input id="inRank" type="number" inputmode="numeric" placeholder="例：26000"><span class="unit">名</span></div>
+        </div>
+      </div>
+      <div class="field">
+        <label>兴趣方向 <span class="hint">可多选，用于匹配与排序加权（不选则全量推荐）</span></label>
+        <div class="intro-chips" id="introChips"></div>
+      </div>
+      <div class="runrow">
+        <button class="run" id="runBtn">开始智能分析 <span class="ar">→</span></button>
+        <span class="percentile" id="percentile"></span>
+        <span class="err" id="errMsg"></span>
+      </div>
     </div>
-  `;
+  </section>
+
+  <section id="results"></section>
+
+  <p class="foot">
+    数据来源：用户提供的《长理云南录取信息》（2023–2025）及长沙理工大学公开招生信息。<br>
+    本分析为基于历史位次的统计测算，录取概率受当年报考人数、招生计划、试题难度等因素影响，结果仅供参考，请以官方权威信息为准。
+  </p>
+</div>
+
+<script id="DATA" type="application/json">{"majors":[{"name":"法学","track":"历史","chem":false,"group":"文法·外语·传媒","quota":2,"xuanke":"首选历史/再选不限","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":586,"avg":588.5,"max":591,"rank":3856},"y2024":{"min":600,"avg":600.5,"max":601,"rank":3268},"y2023":{"min":574,"avg":574.5,"max":575,"rank":3940}},{"name":"汉语言文学","track":"历史","chem":false,"group":"文法·外语·传媒","quota":2,"xuanke":"首选历史/再选不限","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":582,"avg":582.0,"max":582,"rank":4443},"y2024":{"min":597,"avg":597.0,"max":597,"rank":3662},"y2023":{"min":573,"avg":573.5,"max":574,"rank":4066}},{"name":"英语","track":"历史","chem":false,"group":"文法·外语·传媒","quota":3,"xuanke":"首选历史/再选不限","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":577,"avg":579.67,"max":581,"rank":5209},"y2024":{"min":593,"avg":594.0,"max":595,"rank":4238},"y2023":{"min":572,"avg":573.0,"max":574,"rank":4189}},{"name":"网络与新媒体（创新班）","track":"历史","chem":false,"group":"文法·外语·传媒","quota":2,"xuanke":"首选历史/再选不限","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":null,"y2024":null,"y2023":null},{"name":"英语","track":"物理","chem":false,"group":"经管·外语","quota":2,"xuanke":"首选物理/再选不限","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":535,"avg":554.5,"max":574,"rank":39840},"y2024":null,"y2023":null},{"name":"工程管理","track":"物理","chem":false,"group":"经管·外语","quota":4,"xuanke":"首选物理/再选不限","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":518,"avg":524.0,"max":529,"rank":50619},"y2024":{"min":564,"avg":566.5,"max":570,"rank":18967},"y2023":{"min":557,"avg":557.5,"max":558,"rank":15836}},{"name":"会计学","track":"物理","chem":false,"group":"经管·外语","quota":2,"xuanke":"首选物理/再选不限","tier":"ace","tierLabel":"王牌·国家级特色","star":5,"blurb":"1956年开办，国家级特色专业，本硕博博士后完整体系，交通系统内“南路桥、北财会”，电力财经人才“黄埔军校”。","y2025":{"min":563,"avg":568.5,"max":574,"rank":24566},"y2024":{"min":584,"avg":584.0,"max":584,"rank":12146},"y2023":null},{"name":"财务管理","track":"物理","chem":false,"group":"经管·外语","quota":2,"xuanke":"首选物理/再选不限","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":540,"avg":547.5,"max":555,"rank":36922},"y2024":{"min":564,"avg":574.5,"max":585,"rank":18967},"y2023":{"min":555,"avg":555.5,"max":556,"rank":16456}},{"name":"城乡规划","track":"物理","chem":false,"group":"建筑·规划","quota":2,"xuanke":"首选物理/再选不限","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":538,"avg":539.0,"max":540,"rank":38037},"y2024":null,"y2023":null},{"name":"风景园林","track":"物理","chem":false,"group":"建筑·规划","quota":2,"xuanke":"首选物理/再选不限","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":515,"avg":540.5,"max":566,"rank":52642},"y2024":null,"y2023":null},{"name":"数学与应用数学","track":"物理","chem":true,"group":"数理·基础","quota":2,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":559,"avg":559.0,"max":559,"rank":26501},"y2024":null,"y2023":null},{"name":"应用化学","track":"物理","chem":true,"group":"数理·基础","quota":6,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":541,"avg":551.83,"max":556,"rank":36341},"y2024":{"min":561,"avg":570.0,"max":583,"rank":20083},"y2023":{"min":549,"avg":550.5,"max":552,"rank":18448}},{"name":"应用统计学","track":"物理","chem":true,"group":"数理·基础","quota":3,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":549,"avg":558.33,"max":568,"rank":31830},"y2024":null,"y2023":null},{"name":"地理信息科学","track":"物理","chem":true,"group":"数理·基础","quota":2,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":544,"avg":554.33,"max":568,"rank":34605},"y2024":{"min":555,"avg":557.0,"max":560,"rank":22520},"y2023":{"min":554,"avg":554.5,"max":555,"rank":16767}},{"name":"工程力学","track":"物理","chem":true,"group":"机械·材料·能动","quota":5,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":541,"avg":550.6,"max":556,"rank":36341},"y2024":{"min":580,"avg":580.0,"max":580,"rank":13358},"y2023":null},{"name":"机械设计制造及其自动化","track":"物理","chem":true,"group":"机械·材料·能动","quota":6,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":562,"avg":571.5,"max":587,"rank":25022},"y2024":{"min":595,"avg":597.0,"max":599,"rank":9109},"y2023":null},{"name":"车辆工程","track":"物理","chem":true,"group":"机械·材料·能动","quota":4,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":555,"avg":563.25,"max":572,"rank":28548},"y2024":{"min":572,"avg":574.0,"max":576,"rank":16005},"y2023":null},{"name":"材料科学与工程","track":"物理","chem":true,"group":"机械·材料·能动","quota":4,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":544,"avg":550.5,"max":557,"rank":34605},"y2024":{"min":550,"avg":550.5,"max":551,"rank":24600},"y2023":null},{"name":"新能源材料与器件","track":"物理","chem":true,"group":"机械·材料·能动","quota":4,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":560,"avg":561.5,"max":563,"rank":26012},"y2024":{"min":572,"avg":575.0,"max":578,"rank":16005},"y2023":null},{"name":"能源与动力工程","track":"物理","chem":true,"group":"机械·材料·能动","quota":5,"xuanke":"首选物理/再选化学","tier":"ace","tierLabel":"王牌·国家级特色","star":5,"blurb":"原热能与动力工程，国家级特色专业、卓越工程师计划，电力能源行业特色鲜明，就业居全校前列。","y2025":{"min":560,"avg":565.0,"max":577,"rank":26012},"y2024":{"min":592,"avg":592.5,"max":593,"rank":9890},"y2023":{"min":561,"avg":566.5,"max":572,"rank":14586}},{"name":"新能源科学与工程","track":"物理","chem":true,"group":"机械·材料·能动","quota":7,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":559,"avg":563.0,"max":573,"rank":26501},"y2024":{"min":589,"avg":591.0,"max":593,"rank":10697},"y2023":{"min":562,"avg":562.5,"max":563,"rank":14296}},{"name":"储能科学与工程","track":"物理","chem":true,"group":"机械·材料·能动","quota":2,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":555,"avg":558.5,"max":562,"rank":28548},"y2024":{"min":581,"avg":582.0,"max":583,"rank":13036},"y2023":{"min":557,"avg":560.5,"max":564,"rank":15836}},{"name":"电气工程及其自动化","track":"物理","chem":true,"group":"电气·电子·自动化","quota":9,"xuanke":"首选物理/再选化学","tier":"ace","tierLabel":"王牌·国家级特色","star":5,"blurb":"长理“王牌电气”，源自原长沙电力学院，国家级特色专业、卓越工程师计划。国家电网/南方电网校招直签，电力行业认可度极高。","y2025":{"min":592,"avg":605.33,"max":617,"rank":12494},"y2024":{"min":599,"avg":601.67,"max":604,"rank":8137},"y2023":{"min":578,"avg":582.0,"max":586,"rank":10088}},{"name":"智能电网信息工程","track":"物理","chem":true,"group":"电气·电子·自动化","quota":1,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":null,"y2024":null,"y2023":null},{"name":"电子科学与技术","track":"物理","chem":true,"group":"电气·电子·自动化","quota":4,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":570,"avg":579.0,"max":588,"rank":21389},"y2024":{"min":585,"avg":586.0,"max":587,"rank":11848},"y2023":null},{"name":"通信工程","track":"物理","chem":true,"group":"电气·电子·自动化","quota":2,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":574,"avg":578.0,"max":582,"rank":19583},"y2024":{"min":586,"avg":589.0,"max":592,"rank":11534},"y2023":{"min":565,"avg":567.0,"max":569,"rank":13433}},{"name":"电子信息科学与技术","track":"物理","chem":true,"group":"电气·电子·自动化","quota":3,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":570,"avg":576.0,"max":580,"rank":21389},"y2024":{"min":584,"avg":590.0,"max":594,"rank":12146},"y2023":null},{"name":"人工智能","track":"物理","chem":true,"group":"电气·电子·自动化","quota":3,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"近年新兴热门方向，依托电气电子学科群，对接智能产业，报考热度高、分数线居前。","y2025":{"min":575,"avg":583.33,"max":594,"rank":19141},"y2024":{"min":587,"avg":591.5,"max":596,"rank":11249},"y2023":{"min":567,"avg":567.0,"max":567,"rank":12848}},{"name":"自动化","track":"物理","chem":true,"group":"电气·电子·自动化","quota":4,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":589,"avg":590.0,"max":591,"rank":13520},"y2024":{"min":597,"avg":597.5,"max":598,"rank":8647},"y2023":{"min":571,"avg":572.0,"max":573,"rank":11813}},{"name":"机器人工程","track":"物理","chem":true,"group":"电气·电子·自动化","quota":3,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":557,"avg":558.0,"max":559,"rank":27488},"y2024":null,"y2023":null},{"name":"计算机科学与技术","track":"物理","chem":true,"group":"计算机","quota":5,"xuanke":"首选物理/再选化学","tier":"ace","tierLabel":"王牌·国家级特色","star":5,"blurb":"国家级特色专业、卓越工程师计划，依托综合交通大数据智能处理省重点实验室，工程认证专业。","y2025":{"min":567,"avg":575.0,"max":589,"rank":22756},"y2024":{"min":594,"avg":595.5,"max":597,"rank":9339},"y2023":{"min":571,"avg":572.0,"max":573,"rank":11813}},{"name":"软件工程","track":"物理","chem":true,"group":"计算机","quota":5,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"国家级一流本科专业，实践与竞赛培养体系完善，IT就业面广。","y2025":{"min":560,"avg":571.6,"max":599,"rank":26012},"y2024":{"min":586,"avg":589.0,"max":592,"rank":11534},"y2023":{"min":564,"avg":566.0,"max":568,"rank":13735}},{"name":"土木工程（创新班）","track":"物理","chem":true,"group":"土木·水利·测绘·交通","quota":4,"xuanke":"首选物理/再选化学","tier":"ace","tierLabel":"王牌·国家级特色","star":5,"blurb":"土木工程拔尖培养实验班，强化智能土木与科研创新，享受更优师资与深造资源。","y2025":{"min":542,"avg":549.5,"max":554,"rank":35759},"y2024":null,"y2023":null},{"name":"土木工程","track":"物理","chem":true,"group":"土木·水利·测绘·交通","quota":8,"xuanke":"首选物理/再选化学","tier":"ace","tierLabel":"王牌·国家级特色","star":5,"blurb":"国家级特色专业、国家人才培养模式创新实验区，依托“极端环境绿色长寿道路工程全国重点实验室”，路桥隧道方向行业声誉深厚。","y2025":{"min":540,"avg":550.0,"max":562,"rank":36922},"y2024":{"min":549,"avg":569.2,"max":580,"rank":25022},"y2023":{"min":548,"avg":555.5,"max":560,"rank":18777}},{"name":"建筑环境与能源应用工程","track":"物理","chem":true,"group":"土木·水利·测绘·交通","quota":2,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":553,"avg":553.0,"max":553,"rank":29629},"y2024":{"min":568,"avg":576.0,"max":584,"rank":17436},"y2023":{"min":553,"avg":554.5,"max":556,"rank":17126}},{"name":"给排水科学与工程","track":"物理","chem":true,"group":"土木·水利·测绘·交通","quota":2,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":null,"y2024":{"min":562,"avg":562.0,"max":562,"rank":19735},"y2023":null},{"name":"道路桥梁与渡河工程","track":"物理","chem":true,"group":"土木·水利·测绘·交通","quota":8,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":541,"avg":547.18,"max":551,"rank":36341},"y2024":{"min":545,"avg":563.17,"max":570,"rank":26759},"y2023":{"min":547,"avg":550.75,"max":556,"rank":19109}},{"name":"智能建造","track":"物理","chem":true,"group":"土木·水利·测绘·交通","quota":5,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"","y2025":{"min":542,"avg":545.0,"max":554,"rank":35759},"y2024":{"min":552,"avg":555.0,"max":558,"rank":23724},"y2023":null},{"name":"港口航道与海岸工程","track":"物理","chem":true,"group":"土木·水利·测绘·交通","quota":2,"xuanke":"首选物理/再选化学","tier":"ace","tierLabel":"王牌·国家级特色","star":5,"blurb":"湖南省唯一开设，国家级一流专业，水利类全国排名前列，对接“交通强国”“一带一路”水运工程。","y2025":null,"y2024":null,"y2023":null},{"name":"水利水电工程","track":"物理","chem":true,"group":"土木·水利·测绘·交通","quota":6,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"卓越工程师计划，水利行业特色，工程认证专业。","y2025":{"min":541,"avg":546.45,"max":554,"rank":36341},"y2024":null,"y2023":null},{"name":"水文与水资源工程","track":"物理","chem":true,"group":"土木·水利·测绘·交通","quota":2,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":545,"avg":545.0,"max":545,"rank":34052},"y2024":null,"y2023":null},{"name":"测绘工程","track":"物理","chem":true,"group":"土木·水利·测绘·交通","quota":2,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"国家级一流专业，工程教育认证，测绘科学与技术为湖南省重点学科。","y2025":{"min":543,"avg":543.5,"max":544,"rank":35181},"y2024":{"min":566,"avg":567.5,"max":569,"rank":18216},"y2023":null},{"name":"遥感科学与技术","track":"物理","chem":true,"group":"土木·水利·测绘·交通","quota":2,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":548,"avg":551.5,"max":555,"rank":32350},"y2024":{"min":571,"avg":572.0,"max":573,"rank":16399},"y2023":null},{"name":"交通工程","track":"物理","chem":true,"group":"土木·水利·测绘·交通","quota":3,"xuanke":"首选物理/再选化学","tier":"ace","tierLabel":"王牌·国家级特色","star":5,"blurb":"国家级特色专业，交通运输工程为湖南省“世界一流培育学科”，参与港珠澳大桥、深中通道等国家级工程。","y2025":{"min":553,"avg":555.33,"max":559,"rank":29629},"y2024":{"min":552,"avg":571.33,"max":583,"rank":23724},"y2023":null},{"name":"船舶与海洋工程","track":"物理","chem":true,"group":"土木·水利·测绘·交通","quota":2,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":545,"avg":546.5,"max":548,"rank":34052},"y2024":{"min":562,"avg":562.0,"max":562,"rank":19735},"y2023":null},{"name":"化学工程与工艺","track":"物理","chem":true,"group":"化工·环境·食品生物","quota":4,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":550,"avg":553.5,"max":557,"rank":31275},"y2024":{"min":559,"avg":560.67,"max":563,"rank":20863},"y2023":{"min":545,"avg":548.0,"max":551,"rank":19830}},{"name":"环境工程","track":"物理","chem":true,"group":"化工·环境·食品生物","quota":1,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":null,"y2024":{"min":571,"avg":571.0,"max":571,"rank":16399},"y2023":null},{"name":"食品科学与工程","track":"物理","chem":true,"group":"化工·环境·食品生物","quota":4,"xuanke":"首选物理/再选化学","tier":"strong","tierLabel":"优势·一流/认证","star":4,"blurb":"国家级一流专业，工程认证，依托环洞庭湖农产品深加工科研优势。","y2025":{"min":551,"avg":555.33,"max":562,"rank":30718},"y2024":{"min":561,"avg":568.33,"max":581,"rank":20083},"y2023":null},{"name":"食品营养与健康","track":"物理","chem":true,"group":"化工·环境·食品生物","quota":4,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":543,"avg":548.33,"max":555,"rank":35181},"y2024":{"min":551,"avg":559.5,"max":568,"rank":24162},"y2023":null},{"name":"生物工程","track":"物理","chem":true,"group":"化工·环境·食品生物","quota":4,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":547,"avg":556.75,"max":566,"rank":32923},"y2024":{"min":557,"avg":562.0,"max":566,"rank":21670},"y2023":null},{"name":"物流工程","track":"物理","chem":true,"group":"化工·环境·食品生物","quota":2,"xuanke":"首选物理/再选化学","tier":"good","tierLabel":"良好","star":3,"blurb":"","y2025":{"min":542,"avg":545.25,"max":551,"rank":35759},"y2024":{"min":551,"avg":569.33,"max":579,"rank":24162},"y2023":null}],"control":{"2025_物理类":{"min":515,"rank":52642,"ctrl":430,"avg":558.15},"2025_历史类":{"min":577,"rank":5209,"ctrl":465,"avg":582.11},"2024_理工":{"min":545,"rank":26759,"ctrl":505,"avg":573.22},"2024_文史":{"min":593,"rank":4238,"ctrl":550,"avg":596.56},"2023_理工":{"min":545,"rank":19830,"ctrl":485,"avg":559.78},"2023_文史":{"min":571,"rank":4351,"ctrl":530,"avg":573.9}},"meta":{"physCtrl2025":430,"histCtrl2025":465,"physCtrl2024":505,"histCtrl2024":550}}</script>
+<script>
+const DB = JSON.parse(document.getElementById('DATA').textContent);
+const state = { track:'物理', chem:'1', interests:new Set() };
+
+/* ---- interest groups ---- */
+const GROUPS_PHYS = ['经管·外语','建筑·规划','数理·基础','机械·材料·能动','电气·电子·自动化','计算机','土木·水利·测绘·交通','化工·环境·食品生物'];
+const GROUPS_HIST = ['文法·外语·传媒'];
+const GROUP_ICON = {'经管·外语':'💼','建筑·规划':'🏛','数理·基础':'📐','机械·材料·能动':'⚙️','电气·电子·自动化':'⚡','计算机':'💻','土木·水利·测绘·交通':'🌉','化工·环境·食品生物':'🧪','文法·外语·传媒':'📚'};
+
+function renderChips(){
+  const box = document.getElementById('introChips');
+  const groups = state.track==='物理' ? GROUPS_PHYS : GROUPS_HIST;
+  box.innerHTML='';
+  groups.forEach(g=>{
+    const el=document.createElement('span');
+    el.className='ic'+(state.interests.has(g)?' on':'');
+    el.innerHTML=(GROUP_ICON[g]||'')+' '+g;
+    el.onclick=()=>{ state.interests.has(g)?state.interests.delete(g):state.interests.add(g); el.classList.toggle('on'); };
+    box.appendChild(el);
+  });
 }
 
-// ===== Controls =====
-document.getElementById('expandAll').addEventListener('click', ()=>{
-  treeEl.querySelectorAll('.node').forEach(n=>{
-    if(n.querySelector(':scope > .children')) n.classList.add('open');
-  });
+/* ---- segmented controls ---- */
+document.querySelectorAll('#segTrack button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#segTrack button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); state.track=b.dataset.v; state.interests.clear();
+  document.getElementById('chemField').style.display = state.track==='物理'?'block':'none';
+  renderChips();
 });
-document.getElementById('collapseAll').addEventListener('click', ()=>{
-  treeEl.querySelectorAll('.node:not(.lv-0)').forEach(n=>n.classList.remove('open'));
+document.querySelectorAll('#segChem button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#segChem button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); state.chem=b.dataset.v;
 });
-document.getElementById('resetBtn').addEventListener('click', ()=>{
-  treeEl.querySelectorAll('.node').forEach(n=>{
-    n.classList.remove('match','dim','active');
-    if(n.classList.contains('lv-0')||n.classList.contains('lv-1')||n.classList.contains('lv-2')) n.classList.add('open');
-    else n.classList.remove('open');
-  });
-  document.getElementById('searchInput').value='';
-  document.getElementById('detail').innerHTML = `
-    <div class="detail-empty" id="emptyState">
-      <div class="glyph">币</div>
-      <p>Select a Policy Tool</p>
-      <p class="cn">点击左侧工具节点 · 查看详细内容</p>
-    </div>`;
+renderChips();
+
+/* ---- probability model (位次法) ---- */
+// P = 100 / (1 + exp(9.4*(r-1))), r = studentRank / majorMinRank
+function probOf(studentRank, minRank){
+  const r = studentRank / minRank;
+  return 100/(1+Math.exp(9.4*(r-1)));
+}
+function categorize(p){
+  if(p>=75) return 'safe';
+  if(p>=45) return 'stable';
+  if(p>=20) return 'rush';
+  return 'risk';
+}
+const CAT_META={
+  safe:{cls:'c-safe',badge:'b-safe',tcol:'t-safe',label:'保 · 稳妥保底',idx:'保',desc:'位次明显优于历年录取线，录取把握大，建议作为志愿表底部保障。'},
+  stable:{cls:'c-stable',badge:'b-stable',tcol:'t-stable',label:'稳 · 较有把握',idx:'稳',desc:'位次与历年录取线接近，录取较有把握，是志愿表的主力区间。'},
+  rush:{cls:'c-rush',badge:'b-rush',tcol:'t-rush',label:'冲 · 可冲一冲',idx:'冲',desc:'位次略低于历年录取线，有一定机会，建议放在志愿表前列冲刺。'}
+};
+const BAR_COLOR={safe:'var(--safe)',stable:'var(--stable)',rush:'var(--rush)',risk:'var(--risk)'};
+
+/* ---- run analysis ---- */
+document.getElementById('runBtn').onclick = run;
+[document.getElementById('inScore'),document.getElementById('inRank')].forEach(el=>{
+  el.addEventListener('keydown',e=>{if(e.key==='Enter')run();});
 });
 
-// ===== Search =====
-const searchInput = document.getElementById('searchInput');
-searchInput.addEventListener('input', e=>{
-  const q = e.target.value.trim().toLowerCase();
-  const all = treeEl.querySelectorAll('.node');
-  all.forEach(n=>n.classList.remove('match','dim'));
-  if(!q){ return; }
+function run(){
+  const score=parseInt(document.getElementById('inScore').value);
+  const rank=parseInt(document.getElementById('inRank').value);
+  const err=document.getElementById('errMsg'); err.textContent='';
+  if(!rank||rank<=0){ err.textContent='请填写有效的全省位次（最关键的指标）。'; return; }
+  if(!score||score<=0){ err.textContent='请填写有效的高考分数。'; return; }
 
-  // find matches by checking the node's own label text AND its items
-  const matched = new Set();
-  all.forEach(n=>{
-    const label = n.querySelector(':scope > .node-line > .label').textContent.toLowerCase();
-    // also search items if this is a leaf
-    let inItems = false;
-    // find data via traversal — easier: search descendants' content
-    if(label.includes(q)) matched.add(n);
-  });
-  // also search through DATA recursively for item-text matches
-  function walk(node, parents){
-    const inItems = (node.items||[]).some(i=>i.toLowerCase().includes(q));
-    if(inItems){
-      // mark this leaf as match
-      const el = treeEl.querySelector(`.node[data-path="${[...parents, node.name].join('›')}"]`);
-      if(el) matched.add(el);
-    }
-    (node.children||[]).forEach(c=>walk(c, [...parents, node.name]));
-  }
-  walk(DATA, []);
-
-  if(matched.size === 0){
-    all.forEach(n=>n.classList.add('dim'));
-    return;
+  // eligible majors by track + chem
+  let majors = DB.majors.filter(m=>m.track===state.track);
+  if(state.track==='物理' && state.chem==='0'){
+    majors = majors.filter(m=>!m.chem); // only 再选不限
   }
 
-  // mark matches and open ancestors
-  matched.forEach(n=>{
-    n.classList.add('match');
-    let p = n.parentElement;
-    while(p && p !== treeEl){
-      if(p.classList.contains('node')) p.classList.add('open');
-      p = p.parentElement;
-    }
+  // compute prob using 2025 if available else 2024 (low confidence)
+  const rows = majors.map(m=>{
+    let anchor=null, year=2025, low=false;
+    if(m.y2025){ anchor=m.y2025; year=2025; }
+    else if(m.y2024){ anchor=m.y2024; year=2024; low=true; }
+    else if(m.y2023){ anchor=m.y2023; year=2023; low=true; }
+    if(!anchor) return {m,skip:true};
+    const p=probOf(rank, anchor.rank);
+    let cat=categorize(p);
+    const matched = state.interests.size>0 && state.interests.has(m.group);
+    return {m,p,cat,anchor,year,low,matched,minRank:anchor.rank,min:anchor.min,avg:anchor.avg};
+  }).filter(x=>!x.skip);
+
+  // sort within: matched first, then prob desc
+  const order={safe:0,stable:1,rush:2,risk:3};
+  rows.sort((a,b)=> (a.matched===b.matched? b.p-a.p : (a.matched?-1:1)));
+
+  renderResults(rows, score, rank);
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function fmt(n){return n.toLocaleString('en-US');}
+
+function percentileText(rank){
+  const key = state.track==='物理'?'2025_物理类':'2025_历史类';
+  const c=DB.control[key];
+  const ctrl = state.track==='物理'?DB.meta.physCtrl2025:DB.meta.histCtrl2025;
+  return c;
+}
+
+function renderResults(rows, score, rank){
+  const R=document.getElementById('results');
+  const ctrl = state.track==='物理'?DB.meta.physCtrl2025:DB.meta.histCtrl2025;
+  const overCtrl = score-ctrl;
+  document.getElementById('percentile').innerHTML = `参照 2025 控制线 <b>${ctrl}</b> 分，你超出 <b>${overCtrl>=0?'+':''}${overCtrl}</b> 分`;
+
+  const cnt={safe:0,stable:0,rush:0,risk:0};
+  rows.forEach(r=>cnt[r.cat]++);
+  const total=rows.length;
+  const matchN = rows.filter(r=>r.matched).length;
+
+  let html = `
+  <div class="sec-h"><span class="idx">02</span><h2>智能测算总览</h2><span class="sub">${state.track}类 · 共 ${total} 个可报专业</span></div>
+  <div class="dash">
+    <div class="stat feat">
+      <div class="lab">◈ 推荐策略</div>
+      <div class="big">${cnt.safe+cnt.stable}<small>/ ${total} 个稳妥及以上</small></div>
+      <div class="pill" style="background:rgba(241,210,160,.16);color:#F1D2A0">建议「冲${cnt.rush} · 稳${cnt.stable} · 保${cnt.safe}」组合填报</div>
+    </div>
+    <div class="stat"><div class="lab"><span class="bardot" style="background:var(--rush)"></span>可冲刺</div><div class="big t-rush">${cnt.rush}<small>个</small></div></div>
+    <div class="stat"><div class="lab"><span class="bardot" style="background:var(--stable)"></span>较稳妥</div><div class="big t-stable">${cnt.stable}<small>个</small></div></div>
+    <div class="stat"><div class="lab"><span class="bardot" style="background:var(--safe)"></span>可保底</div><div class="big t-safe">${cnt.safe}<small>个</small></div></div>
+  </div>`;
+
+  // axis
+  html += renderAxis(rows, rank);
+
+  // category sections
+  ['rush','stable','safe'].forEach(cat=>{
+    const list=rows.filter(r=>r.cat===cat || (cat==='rush'&&r.cat==='risk'));
+    const meta=CAT_META[cat];
+    html += `<div class="catbar">
+      <span class="badge ${meta.badge}">${meta.idx}</span>
+      <h3>${meta.label}</h3><span class="desc">${meta.desc}</span>
+      <span class="cnt mono">${list.length} 个</span></div>`;
+    html += `<div class="cards">`;
+    if(list.length===0){ html+=`<div class="empty">该梯度暂无匹配专业 —— 可调整位次或科目重新测算。</div>`; }
+    list.forEach(r=>html+=card(r));
+    html += `</div>`;
   });
 
-  // dim non-matches that have no matched descendants
-  all.forEach(n=>{
-    if(matched.has(n)) return;
-    const hasMatchInside = n.querySelector('.node.match');
-    if(!hasMatchInside) n.classList.add('dim');
-  });
-});
+  // ace panel
+  html += renderAce();
 
+  // methodology note
+  html += `<div class="note">
+  <b>测算方法（位次法）：</b>以各专业 2025 年云南最低录取位次为基准，将你的全省位次与之比较，通过统计模型换算为录取概率 P，并按 <b>P≥75% 保 / 45%–75% 稳 / 20%–45% 冲</b> 划分梯度。<br>
+  <b>关于历史数据：</b>2025 年为云南新高考（物理/历史）首年，与 2024、2023 的“理工/文史”位次口径不同，故概率测算以 2025 为准；卡片内的三年趋势仅作参考。标注 <span style="color:var(--risk);font-weight:600">⚠ 缺2025数据</span> 的专业以 2024 老高考数据估算，置信度较低，请谨慎参考。</div>`;
+
+  R.innerHTML=html;
+  R.classList.add('show');
+  // animate prob bars
+  requestAnimationFrame(()=>{ R.querySelectorAll('.probbar i').forEach(b=>{ b.style.width=b.dataset.w+'%'; }); });
+}
+
+function card(r){
+  const m=r.m, meta=CAT_META[r.cat==='risk'?'rush':r.cat];
+  const tb = m.tier==='ace'?'tb-ace':m.tier==='strong'?'tb-strong':'tb-good';
+  const stars='★'.repeat(m.star)+'☆'.repeat(5-m.star);
+  // trend bars (min scores across years, normalized)
+  const ys=[m.y2023,m.y2024,m.y2025].map(y=>y?y.min:null);
+  const yrLabels=['23','24','25'];
+  const valid=ys.filter(v=>v!=null);
+  const mn=Math.min(...valid), mx=Math.max(...valid);
+  const trend = ys.map((v,i)=>{
+    if(v==null) return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px"><div class="tbar" style="height:3px;background:var(--line)"></div></div>`;
+    const h = mx===mn?16:6+ (v-mn)/(mx-mn)*16;
+    return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px" title="20${yrLabels[i]}年最低分 ${v}">
+      <div class="tbar" style="height:${h}px"></div></div>`;
+  }).join('');
+
+  const probColor=BAR_COLOR[r.cat];
+  const riskTag = r.cat==='risk' ? ` <span style="font-size:10px;color:var(--risk);font-weight:700">高风险</span>`:'';
+  return `<div class="mcard ${meta.cls}">
+    <div class="mc-top">
+      <div>
+        <div class="mc-name">${m.name}${riskTag}</div>
+        <div class="mc-grp">${GROUP_ICON[m.group]||''} ${m.group} · 招${m.quota}人 · ${m.xuanke}${r.matched?' · <b style="color:var(--copper)">⬩兴趣匹配</b>':''}</div>
+      </div>
+      <div class="prob">
+        <div class="pv" style="color:${probColor}">${Math.round(r.p)}<span style="font-size:14px">%</span></div>
+        <div class="pl">录取概率</div>
+      </div>
+    </div>
+    <span class="tierbadge ${tb}">${m.tierLabel}<span class="stars">${stars}</span></span>
+    <div class="probbar"><i data-w="${Math.round(r.p)}" style="background:${probColor}"></i></div>
+    <div class="metrics">
+      <div class="m"><div class="mv">${r.min}</div><div class="mk2">${r.year}最低分</div></div>
+      <div class="m"><div class="mv">${fmt(r.minRank)}</div><div class="mk2">${r.year}最低位次</div></div>
+      <div class="m"><div class="mv">${r.anchor.avg.toFixed(0)}</div><div class="mk2">平均分</div></div>
+      <div class="m"><div class="trend">${trend}</div><div class="mk2">23·24·25趋势</div></div>
+    </div>
+    ${m.blurb?`<div class="blurb">${m.blurb}</div>`:''}
+    ${r.low?`<div class="lowconf">⚠ 缺2025数据，以 ${r.year} 年口径估算，仅供参考</div>`:''}
+  </div>`;
+}
+
+/* ---- signature: rank positioning axis ---- */
+function renderAxis(rows, rank){
+  // domain: use 5%~ for safe end and rush end based on data range
+  const ranks = rows.map(r=>r.minRank).filter(Boolean);
+  let lo = Math.min(...ranks, rank), hi = Math.max(...ranks, rank);
+  const pad=(hi-lo)*0.12||500;
+  lo=Math.max(0,lo-pad); hi=hi+pad;
+  const X = v => ((hi-v)/(hi-lo))*100; // left = larger rank(easier/保), right = smaller rank(harder/冲)
+
+  // zone boundaries by prob thresholds relative to ... we shade by representative cutoffs.
+  // Build gradient zones using sampled majors: place each major tick.
+  const ticks = rows.map(r=>{
+    const x=X(r.minRank);
+    const c=r.cat==='risk'?'rush':r.cat;
+    const col = c==='safe'?'var(--safe)':c==='stable'?'var(--stable)':'var(--rush)';
+    return `<div class="mk" style="left:${x}%;background:${col};opacity:.5"><i style="background:${col}"></i></div>`;
+  }).join('');
+
+  const xMe=X(rank);
+  // axis end labels
+  const endL = `<div class="tickrank" style="left:0%">位次 ${fmt(Math.round(hi))}</div>`;
+  const endR = `<div class="tickrank" style="left:100%">位次 ${fmt(Math.round(lo))}（更优）</div>`;
+
+  // shaded zones: split track into rush|stable|safe by where prob crosses 45 and 75 for a typical major.
+  // Simpler & accurate: color each segment of track by sampling prob at that x's rank.
+  const SEG=60; let segs='';
+  for(let i=0;i<SEG;i++){
+    const rk = hi - (i+0.5)/SEG*(hi-lo); // rank at this x (left=hi)
+    // representative: probability that a student at 'rk' lands... we instead color by zone of student vs median cutoff
+    // Use student's own rank to determine: a major cutoff at this rank -> prob for THIS student
+    const p = probOf(rank, rk);
+    const c = p>=75?'var(--safe-bg)':p>=45?'var(--stable-bg)':'var(--rush-bg)';
+    segs+=`<div class="zone" style="flex:1;background:${c}"></div>`;
+  }
+
+  return `<div class="axis-card">
+    <div class="axis-top">
+      <div class="ti">位次定位轴<span>你的位次 ${fmt(rank)} 名 在长理各专业录取线中的位置</span></div>
+      <div class="legend">
+        <span><i style="background:var(--safe)"></i>保</span>
+        <span><i style="background:var(--stable)"></i>稳</span>
+        <span><i style="background:var(--rush)"></i>冲</span>
+        <span><i style="background:var(--ink)"></i>你的位置</span>
+      </div>
+    </div>
+    <div class="axis">
+      <div class="me" style="left:${xMe}%">
+        <div class="flag">你 · ${fmt(rank)}</div>
+      </div>
+      <div class="axis-track">${segs}</div>
+      ${ticks}
+      <div class="zlabel t-safe" style="left:12%">保 · 把握大</div>
+      <div class="zlabel t-stable" style="left:50%">稳 · 较有把握</div>
+      <div class="zlabel t-rush" style="left:86%">冲 · 拼一拼</div>
+      ${endL}${endR}
+    </div>
+  </div>`;
+}
+
+/* ---- ace majors panel ---- */
+function renderAce(){
+  const aces = DB.majors.filter(m=>m.tier==='ace' && m.blurb);
+  // dedup by base name for 土木
+  const seen=new Set(); const list=[];
+  aces.forEach(m=>{ const k=m.name.replace(/（.*?）/,''); if(!seen.has(k)){seen.add(k);list.push(m);} });
+  let cells = list.slice(0,8).map(m=>{
+    const short = m.blurb.split('，').slice(0,1)[0];
+    return `<div class="acex"><div class="nm">${m.name}</div><div class="ds">${short}。</div><div class="st">★ 国家级特色专业</div></div>`;
+  }).join('');
+  return `<div class="sec-h"><span class="idx">03</span><h2>长理王牌专业谱系</h2><span class="sub">交通 · 电力 · 水利 · 经管 四脉</span></div>
+  <div class="acepanel">
+    <div class="ace-h">行业底色铸就的 <span>国家级特色专业</span></div>
+    <div class="ace-sub">长理以原交通部、电力部院校为根基，交通运输工程入选湖南省“世界一流培育学科”，建有“极端环境绿色长寿道路工程”“电网防灾减灾”全国重点实验室。下列专业在对应行业内认可度极高。</div>
+    <div class="acegrid">${cells}</div>
+  </div>`;
+}
 </script>
 </body>
 </html>
